@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Twig_Environment;
@@ -42,26 +43,34 @@ class PostController
 	 * @var EntityManagerInterface
 	 */
 	private $entityManager;
+
 	private $router;
+	/**
+	 * @var FlashBagInterface
+	 */
+	private $flashBag;
 
 	/**
-	 * @param \Twig_Environment         $twig
-	 * @param PostRepository            $postRepository
-	 * @param FormFactoryInterface      $formFactory
-	 * @param EntityManagerInterface    $entityManager
-	 * @param RouterInterface           $router
+	 * @param \Twig_Environment      $twig
+	 * @param PostRepository         $postRepository
+	 * @param FormFactoryInterface   $formFactory
+	 * @param EntityManagerInterface $entityManager
+	 * @param RouterInterface        $router
+	 * @param FlashBagInterface      $flashBag
 	 */
 	public function __construct(Twig_Environment $twig,
 	                            PostRepository $postRepository,
 								FormFactoryInterface $formFactory,
 								EntityManagerInterface $entityManager,
-								RouterInterface $router)
+								RouterInterface $router,
+							    FlashBagInterface $flashBag)
 	{
 		$this->twig           = $twig;
 		$this->postRepository = $postRepository;
 		$this->formFactory = $formFactory;
 		$this->entityManager = $entityManager;
 		$this->router = $router;
+		$this->flashBag = $flashBag;
 	}
 
 	/**
@@ -91,8 +100,6 @@ class PostController
 		);
 		$form->handleRequest($request);
 
-//		$post->setTime(new DateTime('2020-03-01'));
-
 		if ($form->isSubmitted() && $form->isValid())
 		{
 			$this->entityManager->persist($post);
@@ -104,6 +111,21 @@ class PostController
 		return new Response($this->twig->render(
 			'post/add.html.twig', ['form' => $form->createView()]
 		));
+	}
+
+	/**
+	 * @Route("/delete/{id}", name="post_delete")
+	 * @param Post $post
+	 * @return RedirectResponse
+	 */
+	public function delete(Post $post)
+	{
+		$this->entityManager->remove($post);
+		$this->entityManager->flush();
+
+		$this->flashBag->add('notice', 'Post was deleted');
+
+		return new RedirectResponse($this->router->generate('post_index'));
 	}
 
 	/**
