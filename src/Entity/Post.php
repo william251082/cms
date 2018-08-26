@@ -9,6 +9,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post
@@ -26,6 +27,8 @@ class Post
 
 	/**
 	 * @ORM\Column(type="string", length=280)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(min=10)
 	 */
 	private $text;
 

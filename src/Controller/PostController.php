@@ -71,10 +71,39 @@ class PostController
 	{
 		$html = $this->twig->render(
 			'post/index.html.twig', [
-			'posts' => $this->postRepository->findAll()
+			'posts' => $this->postRepository->findBy([], ['time' => 'DESC']),
 		]);
 
 		return new Response($html);
+	}
+
+	/**
+	 * @Route("/edit/{id}", name="post_edit")
+	 * @param Post    $post
+	 * @param Request $request
+	 * @throws
+	 * @return Response
+	 */
+	public function edit(Post $post, Request $request)
+	{
+		$form = $this->formFactory->create(
+			PostType::class, $post
+		);
+		$form->handleRequest($request);
+
+//		$post->setTime(new DateTime('2020-03-01'));
+
+		if ($form->isSubmitted() && $form->isValid())
+		{
+			$this->entityManager->persist($post);
+			$this->entityManager->flush();
+
+			return new RedirectResponse($this->router->generate('post_index'));
+		}
+
+		return new Response($this->twig->render(
+			'post/add.html.twig', ['form' => $form->createView()]
+		));
 	}
 
 	/**
