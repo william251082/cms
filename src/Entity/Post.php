@@ -37,6 +37,14 @@ class Post
 	/**
 	 * @return mixed
 	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @return mixed
+	 */
 	public function getText()
 	{
 		return $this->text;

@@ -69,7 +69,8 @@ class PostController
 	 */
 	public function index()
 	{
-		$html = $this->twig->render('post/index.html.twig', [
+		$html = $this->twig->render(
+			'post/index.html.twig', [
 			'posts' => $this->postRepository->findAll()
 		]);
 
@@ -101,5 +102,27 @@ class PostController
 		return new Response($this->twig->render(
 			'post/add.html.twig', ['form' => $form->createView()]
 		));
+	}
+
+	/**
+	 * @Route("/{id}", name="post_post")
+	 * @param Post $post
+	 *
+	 * @return Response
+	 * @throws \Twig_Error_Loader
+	 * @throws \Twig_Error_Runtime
+	 * @throws \Twig_Error_Syntax
+	 */
+	public function post(Post $post)
+	{
+//		$post = $this->postRepository->find($id);
+
+		return new Response(
+			$this->twig->render(
+				'post/post.html.twig', [
+					'post' => $post
+				]
+			)
+		);
 	}
 }
