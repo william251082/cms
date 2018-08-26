@@ -1,0 +1,35 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: williamdelrosario
+ * Date: 8/26/18
+ * Time: 2:00 PM
+ */
+
+namespace App\Service;
+
+use Psr\Log\LoggerInterface;
+
+class Greeting
+{
+	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+	/**
+	 * @var string
+	 */
+	private $message;
+
+	public function __construct(LoggerInterface $logger, string $message)
+	{
+		$this->logger = $logger;
+		$this->message = $message;
+	}
+
+	public function greet(string $name): string
+	{
+		$this->logger->info("Greeted $name");
+		return "{$this->message} $name";
+	}
+}
