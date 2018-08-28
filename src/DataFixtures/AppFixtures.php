@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
 		$this->loadUsers($manager);
 	}
 
-	public function loadPosts(ObjectManager $manager)
+	private function loadPosts(ObjectManager $manager)
 	{
 		for ($i = 0; $i < 10; $i++)
 		{

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -54,7 +55,17 @@ class User implements UserInterface, Serializable
 	 */
     private $fullName;
 
-    public function getId(): ?int
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="user"))
+	 */
+    private $posts;
+
+    public function __construct()
+    {
+    	$this->posts = new ArrayCollection();
+    }
+
+	public function getId(): ?int
     {
         return $this->id;
     }
@@ -226,5 +237,14 @@ class User implements UserInterface, Serializable
 	{
 		$this->plainPassword = $plainPassword;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPosts()
+	{
+		return $this->posts;
+	}
+
 
 }
