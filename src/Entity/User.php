@@ -25,7 +25,7 @@ class User implements UserInterface, Serializable
 	/**
 	 * @ORM\Column(type="string", length=50, unique=true)
 	 * @Assert\NotBlank()
-	 * @Assert\Length(min-5, max="50")
+	 * @Assert\Length(min=5, max=50)
 	 */
     private $username;
 
@@ -169,6 +169,14 @@ class User implements UserInterface, Serializable
 			$this->username,
 			$this->password
 			) = unserialize($serialized);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getEmail()
+	{
+		return $this->email;
 	}
 
 	/**
