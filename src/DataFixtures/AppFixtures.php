@@ -34,8 +34,8 @@ class AppFixtures extends Fixture
 
 	public function load(ObjectManager $manager)
 	{
-		$this->loadPosts($manager);
 		$this->loadUsers($manager);
+		$this->loadPosts($manager);
 	}
 
 	private function loadPosts(ObjectManager $manager)
@@ -45,6 +45,7 @@ class AppFixtures extends Fixture
 			$post = new Post();
 			$post->setText('Some random text ' . rand(0,100));
 			$post->setTime(new DateTime('2018-03-15'));
+			$post->setUser($this->getReference('john_doe'));
 			$manager->persist($post);
 		}
 
@@ -60,6 +61,8 @@ class AppFixtures extends Fixture
 		$user->setPassword(
 			$this->passwordEncoder->encodePassword($user, 'john123')
 		);
+
+		$this->addReference('john_doe', $user);
 
 		$manager->persist($user);
 		$manager->flush();
