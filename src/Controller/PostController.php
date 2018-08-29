@@ -194,14 +194,15 @@ class PostController
 	public function userPosts(User $userWithPosts)
 	{
 		$html = $this->twig->render(
-			'post/index.html.twig',
+			'post/user-posts.html.twig',
 			[
-//				'posts' => $this->postRepository->findBy(
-//					['user' => $userWithPosts],
-//					['time' => 'DESC']
-//				),
+				'posts' => $this->postRepository->findBy(
+					['user' => $userWithPosts],
+					['time' => 'DESC']
+				),
+				'user' =>$userWithPosts
 				// lazy loading, using doctrine proxy classes
-				'posts' => $userWithPosts->getPosts()
+//				'posts' => $userWithPosts->getPosts()
 			]
 		);
 

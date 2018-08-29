@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -282,7 +283,7 @@ class User implements UserInterface, Serializable
 	}
 
 	/**
-	 * @return mixed
+	 * @return Collection
 	 */
 	public function getFollowers()
 	{
@@ -290,28 +291,13 @@ class User implements UserInterface, Serializable
 	}
 
 	/**
-	 * @param mixed $followers
-	 */
-	public function setFollowers($followers): void
-	{
-		$this->followers = $followers;
-	}
-
-	/**
-	 * @return mixed
+	 * @return Collection
 	 */
 	public function getFollowing()
 	{
 		return $this->following;
 	}
 
-	/**
-	 * @param mixed $following
-	 */
-	public function setFollowing($following): void
-	{
-		$this->following = $following;
-	}
 
 
 }
