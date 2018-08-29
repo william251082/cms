@@ -84,7 +84,7 @@ class Post
 	}
 
 	/**
-	 * @return mixed
+	 * @return User
 	 */
 	public function getUser()
 	{
