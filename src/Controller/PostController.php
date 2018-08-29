@@ -198,10 +198,12 @@ class PostController
 		$html = $this->twig->render(
 			'post/index.html.twig',
 			[
-				'posts' => $this->postRepository->findBy(
-					['user' => $userWithPosts],
-					['time' => 'DESC']
-				),
+//				'posts' => $this->postRepository->findBy(
+//					['user' => $userWithPosts],
+//					['time' => 'DESC']
+//				),
+				// lazy loading, using doctrine proxy classes
+				'posts' => $userWithPosts->getPosts()
 			]
 		);
 

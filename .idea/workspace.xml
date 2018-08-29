@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bc597661-2eac-48bd-9c17-7fa513db5899" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/raw-post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/raw-post.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +93,7 @@
           <entry key="dummy" value="2" />
           <entry key="env" value="7" />
           <entry key="gitignore" value="2" />
-          <entry key="php" value="5612" />
+          <entry key="php" value="5676" />
           <entry key="twig" value="636" />
           <entry key="txt" value="3" />
           <entry key="yaml" value="634" />
@@ -105,7 +102,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="7" />
-          <entry key="PHP" value="5612" />
+          <entry key="PHP" value="5676" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="Twig" value="636" />
           <entry key="YAML" value="634" />
@@ -164,8 +161,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/PostController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="196" column="5" lean-forward="true" selection-start-line="196" selection-start-column="5" selection-end-line="196" selection-end-column="5" />
+            <state relative-caret-position="313">
+              <caret line="200" column="16" selection-start-line="200" selection-start-column="16" selection-end-line="203" selection-end-column="18" />
               <folding>
                 <element signature="e#127#147#0#PHP" expanded="true" />
                 <element signature="e#5155#5177#1#PHP" expanded="true" />
@@ -533,12 +530,12 @@
       <workItem from="1535297822109" duration="8855000" />
       <workItem from="1535468981460" duration="48000" />
       <workItem from="1535469057641" duration="11623000" />
-      <workItem from="1535523986702" duration="10370000" />
+      <workItem from="1535523986702" duration="10631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49547000" />
+    <option name="totallyTimeSpent" value="49808000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
@@ -939,8 +936,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/PostController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="196" column="5" lean-forward="true" selection-start-line="196" selection-start-column="5" selection-end-line="196" selection-end-column="5" />
+        <state relative-caret-position="313">
+          <caret line="200" column="16" selection-start-line="200" selection-start-column="16" selection-end-line="203" selection-end-column="18" />
           <folding>
             <element signature="e#127#147#0#PHP" expanded="true" />
             <element signature="e#5155#5177#1#PHP" expanded="true" />
