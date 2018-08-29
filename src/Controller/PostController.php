@@ -13,13 +13,16 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig_Environment;
 
 /**
@@ -49,21 +52,24 @@ class PostController
 	 * @var FlashBagInterface
 	 */
 	private $flashBag;
+	private $authorizationChecker;
 
 	/**
-	 * @param \Twig_Environment      $twig
-	 * @param PostRepository         $postRepository
-	 * @param FormFactoryInterface   $formFactory
-	 * @param EntityManagerInterface $entityManager
-	 * @param RouterInterface        $router
-	 * @param FlashBagInterface      $flashBag
+	 * @param Twig_Environment                  $twig
+	 * @param PostRepository                    $postRepository
+	 * @param FormFactoryInterface              $formFactory
+	 * @param EntityManagerInterface            $entityManager
+	 * @param RouterInterface                   $router
+	 * @param FlashBagInterface                 $flashBag
+	 * @param AuthorizationCheckerInterface     $authorizationChecker
 	 */
 	public function __construct(Twig_Environment $twig,
 	                            PostRepository $postRepository,
 								FormFactoryInterface $formFactory,
 								EntityManagerInterface $entityManager,
 								RouterInterface $router,
-							    FlashBagInterface $flashBag)
+							    FlashBagInterface $flashBag,
+								AuthorizationCheckerInterface $authorizationChecker)
 	{
 		$this->twig           = $twig;
 		$this->postRepository = $postRepository;
@@ -71,6 +77,7 @@ class PostController
 		$this->entityManager = $entityManager;
 		$this->router = $router;
 		$this->flashBag = $flashBag;
+		$this->authorizationChecker = $authorizationChecker;
 	}
 
 	/**
@@ -90,11 +97,22 @@ class PostController
 	 * @Route("/edit/{id}", name="post_edit")
 	 * @param Post    $post
 	 * @param Request $request
-	 * @throws
+	 *
 	 * @return Response
+	 * @throws \Twig_Error_Loader
+	 * @throws \Twig_Error_Runtime
+	 * @throws \Twig_Error_Syntax
+	 * @Security("is_granted('edit', post)", message="Access denied")
 	 */
 	public function edit(Post $post, Request $request)
 	{
+//		$this->denyUnlessGranted('edit', $post); possible with base Controller
+
+		if (!$this->authorizationChecker->isGranted('edit', $post))
+		{
+			throw new UnauthorizedHttpException();
+		}
+
 		$form = $this->formFactory->create(
 			PostType::class, $post
 		);
@@ -116,6 +134,7 @@ class PostController
 	/**
 	 * @Route("/delete/{id}", name="post_delete")
 	 * @param Post $post
+	 * @Security("is_granted('delete', post)", message="Access denied")
 	 * @return RedirectResponse
 	 */
 	public function delete(Post $post)

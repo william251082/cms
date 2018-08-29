@@ -20,8 +20,8 @@ class RegisterController extends Controller
 {
 	/**
 	 * @Route("/register", name="user_register")
-	 * @param UserPasswordEncoderInterface $passwordEncoder
 	 *
+	 * @param UserPasswordEncoderInterface $passwordEncoder
 	 * @param Request $request
 	 *
 	 * @return RedirectResponse
@@ -29,6 +29,8 @@ class RegisterController extends Controller
 	public function register(UserPasswordEncoderInterface $passwordEncoder,
 							 Request $request)
 	{
+
+//		$this->denyAccessUnlessGranted('edit', $post) possible for base Controller
 		$user = new User();
 		$form = $this->createForm(UserType::class, $user);
 		$form->handleRequest($request);
