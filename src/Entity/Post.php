@@ -8,12 +8,14 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table()
  */
 class Post
@@ -81,6 +83,14 @@ class Post
 	public function setTime($time): void
 	{
 		$this->time = $time;
+	}
+
+	/**
+	 * @ORM\PrePersist()
+	 */
+	public function setTimeOnPersist():void
+	{
+		$this->time = new DateTime();
 	}
 
 	/**

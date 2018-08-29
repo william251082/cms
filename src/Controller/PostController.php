@@ -12,7 +12,6 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -168,7 +167,6 @@ class PostController
 		$user = $tokenStorage->getToken()->getUser();
 
 		$post = new Post();
-		$post->setTime(new DateTime());
 		$post->setUser($user);
 
 		$form = $this->formFactory->create(PostType::class, $post);
