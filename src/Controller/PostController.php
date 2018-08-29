@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use DateTime;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Twig_Environment;
 
@@ -52,6 +54,7 @@ class PostController
 	 * @var FlashBagInterface
 	 */
 	private $flashBag;
+
 	private $authorizationChecker;
 
 	/**
@@ -149,14 +152,24 @@ class PostController
 
 	/**
 	 * @Route("/add", name="post_add")
-	 * @param Request $request
-	 * @throws
+	 * @Security("is_granted('ROLE_USER')")
+	 * @param Request                   $request
+	 * @param TokenStorageInterface     $tokenStorage
+	 *
 	 * @return Response
+	 * @throws \Twig_Error_Loader
+	 * @throws \Twig_Error_Runtime
+	 * @throws \Twig_Error_Syntax
 	 */
-	public function add(Request $request)
+	public function add(Request $request, TokenStorageInterface $tokenStorage)
 	{
+		//$user = $this->getUser(); possible with base Controller
+
+		$user = $tokenStorage->getToken()->getUser();
+
 		$post = new Post();
 		$post->setTime(new DateTime());
+		$post->setUser($user);
 
 		$form = $this->formFactory->create(PostType::class, $post);
 		$form->handleRequest($request);
@@ -172,6 +185,27 @@ class PostController
 		return new Response($this->twig->render(
 			'post/add.html.twig', ['form' => $form->createView()]
 		));
+	}
+
+	/**
+	 * @Route("/user/{username}", name="post_user")
+	 * @throws
+	 * @param User $userWithPosts
+	 * @return Response
+	 */
+	public function userPosts(User $userWithPosts)
+	{
+		$html = $this->twig->render(
+			'post/index.html.twig',
+			[
+				'posts' => $this->postRepository->findBy(
+					['user' => $userWithPosts],
+					['time' => 'DESC']
+				),
+			]
+		);
+
+		return new Response($html);
 	}
 
 	/**
