@@ -36,11 +36,11 @@ class PostRepository extends ServiceEntityRepository
 		$qb = $this->createQueryBuilder('p');
 
 		return $qb
-				->select('p')
-				->where('p.user IN (:following)')
-				->setParameter('following', $users)
-				->orderBy('p.time', 'DESC')
-				->getQuery()
-				->getResult();
+			->select('p')
+			->where('p.user IN (:following)')
+			->setParameter('following', $users)
+			->orderBy('p.time', 'DESC')
+			->getQuery()
+			->getResult();
 	}
 }

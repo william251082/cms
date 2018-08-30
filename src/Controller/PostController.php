@@ -12,6 +12,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -86,18 +87,25 @@ class PostController
 	 * @Route("/", name="post_index")
 	 * @param TokenStorageInterface $tokenStorage
 	 *
+	 * @param UserRepository        $userRepository
+	 *
 	 * @return Response
 	 * @throws \Twig_Error_Loader
 	 * @throws \Twig_Error_Runtime
 	 * @throws \Twig_Error_Syntax
 	 */
-	public function index(TokenStorageInterface $tokenStorage)
+	public function index(TokenStorageInterface $tokenStorage, UserRepository $userRepository)
 	{
 		$currentUser = $tokenStorage->getToken()->getUser();
+
+		// Suggestions to follow users
+		$usersToFollow = [];
 
 		if ($currentUser instanceof User)
 		{
 			$posts = $this->postRepository->findAllByUsers($currentUser->getFollowing());
+
+			$usersToFollow = count($posts) === 0 ? $userRepository->findAllWithMoreThan5PostsExceptUser($currentUser) : [];
 		}
 		else
 			{
@@ -105,9 +113,8 @@ class PostController
 			}
 
 		$html = $this->twig->render(
-			'post/index.html.twig', [
-			'posts' => $posts,
-		]);
+			'post/index.html.twig', ['posts' => $posts, 'usersToFollow' => $usersToFollow ]
+		);
 
 		return new Response($html);
 	}
