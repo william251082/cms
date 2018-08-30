@@ -25,15 +25,20 @@ class FollowingController extends Controller
 	/**
 	 * @Route("/follow/{id}", name="following_follow")
 	 * @param User $userToFollow
+	 *
 	 * @return RedirectResponse
 	 */
 	public function follow(User $userToFollow)
 	{
 		/** @var User $currentUser */
 		$currentUser = $this->getUser();
-		$currentUser->getFollowing()->add($userToFollow);
 
-		$this->getDoctrine()->getManager()->flush();
+		// Make sure to not be able to follow yourself
+		if ($userToFollow->getId() !== $currentUser->getId())
+		{
+			$currentUser->getFollowing()->add($userToFollow);
+			$this->getDoctrine()->getManager()->flush();
+		}
 
 		return $this->redirectToRoute('post_user', [
 			'username' => $userToFollow->getUsername()
@@ -43,6 +48,7 @@ class FollowingController extends Controller
 	/**
 	 * @Route("/unfollow/{id}", name="following_unfollow")
 	 * @param User $userToUnFollow
+	 *
 	 * @return RedirectResponse
 	 */
 	public function unfollow(User $userToUnFollow)
@@ -50,13 +56,10 @@ class FollowingController extends Controller
 		/** @var User $currentUser */
 		$currentUser = $this->getUser();
 		$currentUser->getFollowing()->removeElement($userToUnFollow);
-
 		$this->getDoctrine()->getManager()->flush();
 
 		return $this->redirectToRoute('post_user', [
 			'username' => $userToUnFollow->getUsername()
 		]);
 	}
-
-
 }
