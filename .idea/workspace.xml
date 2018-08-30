@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc597661-2eac-48bd-9c17-7fa513db5899" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/post/post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/post.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="bc597661-2eac-48bd-9c17-7fa513db5899" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +71,7 @@
           <entry key="json" value="5" />
           <entry key="lock" value="3" />
           <entry key="migration_versions" value="1" />
-          <entry key="php" value="105" />
+          <entry key="php" value="107" />
           <entry key="post" value="2" />
           <entry key="sql" value="2" />
           <entry key="twig" value="35" />
@@ -88,7 +86,7 @@
           <entry key="Database Element" value="4" />
           <entry key="JSON" value="5" />
           <entry key="JavaScript" value="1" />
-          <entry key="PHP" value="105" />
+          <entry key="PHP" value="107" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Scratch" value="2" />
           <entry key="Twig" value="35" />
@@ -101,8 +99,8 @@
           <entry key="dummy" value="2" />
           <entry key="env" value="7" />
           <entry key="gitignore" value="2" />
-          <entry key="php" value="7813" />
-          <entry key="twig" value="2545" />
+          <entry key="php" value="8240" />
+          <entry key="twig" value="2546" />
           <entry key="txt" value="3" />
           <entry key="yaml" value="634" />
         </counts>
@@ -110,15 +108,15 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key=".env file" value="7" />
-          <entry key="PHP" value="7813" />
+          <entry key="PHP" value="8240" />
           <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Twig" value="2545" />
+          <entry key="Twig" value="2546" />
           <entry key="YAML" value="634" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
         <counts>
-          <entry key="PHP Class.type" value="14" />
+          <entry key="PHP Class.type" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -166,16 +164,34 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/post/post.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="59" column="74" selection-start-line="59" selection-start-column="74" selection-end-line="59" selection-end-column="74" />
+            <state relative-caret-position="1491">
+              <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
               <folding>
                 <element signature="e#12#26#0#Twig" expanded="true" />
                 <element signature="e#220#283#0#HTML" expanded="true" />
                 <element signature="e#566#634#0#HTML" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Notification.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1474">
+              <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/LikeNotification.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="53" selection-start-line="53" selection-end-line="53" />
             </state>
           </provider>
         </entry>
@@ -235,6 +251,8 @@
         <option value="$PROJECT_DIR$/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/src/Controller/LikesController.php" />
         <option value="$PROJECT_DIR$/templates/post/post.html.twig" />
+        <option value="$PROJECT_DIR$/src/Entity/LikeNotification.php" />
+        <option value="$PROJECT_DIR$/src/Entity/Notification.php" />
       </list>
     </option>
   </component>
@@ -544,12 +562,12 @@
       <workItem from="1535468981460" duration="48000" />
       <workItem from="1535469057641" duration="11623000" />
       <workItem from="1535523986702" duration="23271000" />
-      <workItem from="1535641860876" duration="3298000" />
+      <workItem from="1535641860876" duration="4838000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65746000" />
+    <option name="totallyTimeSpent" value="67286000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
@@ -585,20 +603,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="das://f4c6c8ee-a138-4a6d-a3e6-893f09652e93/schema/cms/table/migration_versions">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://f4c6c8ee-a138-4a6d-a3e6-893f09652e93/schema/cms/table/user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/symfony/http-kernel/HttpKernel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -943,13 +947,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/post/post.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="59" column="74" selection-start-line="59" selection-start-column="74" selection-end-line="59" selection-end-column="74" />
+        <state relative-caret-position="1491">
+          <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
           <folding>
             <element signature="e#12#26#0#Twig" expanded="true" />
             <element signature="e#220#283#0#HTML" expanded="true" />
             <element signature="e#566#634#0#HTML" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/LikeNotification.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Notification.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1474">
+          <caret line="84" column="4" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
         </state>
       </provider>
     </entry>
