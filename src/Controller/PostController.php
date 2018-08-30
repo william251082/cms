@@ -84,12 +84,29 @@ class PostController
 
 	/**
 	 * @Route("/", name="post_index")
+	 * @param TokenStorageInterface $tokenStorage
+	 *
+	 * @return Response
+	 * @throws \Twig_Error_Loader
+	 * @throws \Twig_Error_Runtime
+	 * @throws \Twig_Error_Syntax
 	 */
-	public function index()
+	public function index(TokenStorageInterface $tokenStorage)
 	{
+		$currentUser = $tokenStorage->getToken()->getUser();
+
+		if ($currentUser instanceof User)
+		{
+			$posts = $this->postRepository->findAllByUsers($currentUser->getFollowing());
+		}
+		else
+			{
+				$posts = $this->postRepository->findBy([], ['time' => 'DESC']);
+			}
+
 		$html = $this->twig->render(
 			'post/index.html.twig', [
-			'posts' => $this->postRepository->findBy([], ['time' => 'DESC']),
+			'posts' => $posts,
 		]);
 
 		return new Response($html);
