@@ -10,6 +10,7 @@ namespace App\Mailer;
 
 use App\Entity\User;
 use Swift_Mailer;
+use Swift_Message;
 use Twig_Environment;
 
 class Mailer

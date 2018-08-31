@@ -11,6 +11,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Event\UserRegisterEvent;
 use App\Form\UserType;
+use App\Security\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,16 +24,21 @@ class RegisterController extends Controller
 	/**
 	 * @Route("/register", name="user_register")
 	 *
-	 * @param UserPasswordEncoderInterface $passwordEncoder
-	 * @param Request                      $request
+	 * @param UserPasswordEncoderInterface      $passwordEncoder
+	 * @param Request                           $request
 	 *
-	 * @param EventDispatcherInterface              $eventDispatcher
+	 * @param EventDispatcherInterface          $eventDispatcher
+	 *
+	 * @param TokenGenerator                    $tokenGenerator
+	 *
+	 * @throws
 	 *
 	 * @return RedirectResponse
 	 */
 	public function register(UserPasswordEncoderInterface $passwordEncoder,
 							 Request $request,
-							 EventDispatcherInterface $eventDispatcher)
+							 EventDispatcherInterface $eventDispatcher,
+							 TokenGenerator $tokenGenerator)
 	{
 
 //		$this->denyAccessUnlessGranted('edit', $post) possible for base Controller
@@ -48,6 +54,7 @@ class RegisterController extends Controller
 			);
 
 			$user->setPassword($password);
+			$user->setConfirmationToken($tokenGenerator->getRandomSecureToken(30));
 
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($user);
