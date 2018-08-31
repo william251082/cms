@@ -48,7 +48,7 @@ class UserSubscriber implements EventSubscriberInterface
 
 	/**
 	 * @param UserRegisterEvent $event
-	 * @throws 
+	 * @throws
 	 */
 	public function onUserRegister(UserRegisterEvent $event)
 	{
