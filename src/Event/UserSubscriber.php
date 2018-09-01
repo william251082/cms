@@ -8,11 +8,10 @@
 
 namespace App\Event;
 
+use App\Entity\UserPreferences;
 use App\Mailer\Mailer;
-use Swift_Mailer;
-use Swift_Message;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Twig_Environment;
 
 class UserSubscriber implements EventSubscriberInterface
 {
@@ -20,15 +19,29 @@ class UserSubscriber implements EventSubscriberInterface
 	 * @varvMailer
 	 */
 	private $mailer;
+	/**
+	 * @var EntityManagerInterface
+	 */
+	private $entityManager;
+	/**
+	 * @var string
+	 */
+	private $defaultLocale;
 
 	/**
 	 * UserSubscriber constructor.
 	 *
-	 * @param Mailer     $mailer
+	 * @param Mailer                        $mailer
+	 * @param EntityManagerInterface        $entityManager
+	 * @param string                        $defaultLocale
 	 */
-	public function __construct(Mailer $mailer)
+	public function __construct(Mailer $mailer,
+								EntityManagerInterface $entityManager,
+								string $defaultLocale)
 	{
 		$this->mailer = $mailer;
+		$this->entityManager = $entityManager;
+		$this->defaultLocale = $defaultLocale;
 	}
 
 	/**
@@ -47,6 +60,14 @@ class UserSubscriber implements EventSubscriberInterface
 	 */
 	public function onUserRegister(UserRegisterEvent $event)
 	{
+		$preferences = new UserPreferences();
+		$preferences->setLocale($this->defaultLocale);
+
+		$user = $event->getRegisteredUser();
+		$user->setPreferences($preferences);
+
+		$this->entityManager->flush();
+
 		$this->mailer->sendConfirmationEmail($event->getRegisteredUser());
 	}
 }
