@@ -28,9 +28,9 @@ class Mailer
 	/**
 	 * Mailer constructor.
 	 *
-	 * @param Swift_Mailer     $mailer
-	 * @param Twig_Environment $twig
-	 * @param string           $mailFrom
+	 * @param Swift_Mailer          $mailer
+	 * @param Twig_Environment      $twig
+	 * @param string                $mailFrom
 	 */
 	public function __construct(Swift_Mailer $mailer,
 								Twig_Environment $twig,
